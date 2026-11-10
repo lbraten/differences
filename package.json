@@ -1,0 +1,19 @@
+{
+  "name": "differences",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "diff": "^8.0.2",
+    "lucide": "^0.468.0"
+  },
+  "devDependencies": {
+    "vite": "^7.2.2"
+  }
+}
