@@ -2,52 +2,42 @@ import {
   createIcons,
   ArrowLeftRight,
   ArrowRight,
-  Check,
   CheckCheck,
   ChevronDown,
   Columns2,
   Copy,
   FileText,
   GitCompareArrows,
-  LoaderCircle,
-  LockKeyhole,
   Moon,
   Plus,
   Minus,
   RotateCcw,
   Rows3,
   ShieldCheck,
-  Sparkles,
   Sun,
   Trash2,
   Upload,
-  X,
 } from "lucide";
 import "./style.css";
 
 const icons = {
   ArrowLeftRight,
   ArrowRight,
-  Check,
   CheckCheck,
   ChevronDown,
   Columns2,
   Copy,
   FileText,
   GitCompareArrows,
-  LoaderCircle,
-  LockKeyhole,
   Moon,
   Plus,
   Minus,
   RotateCcw,
   Rows3,
   ShieldCheck,
-  Sparkles,
   Sun,
   Trash2,
   Upload,
-  X,
 };
 const icon = (name, className = "") =>
   `<i data-lucide="${name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}" class="${className}" aria-hidden="true"></i>`;
@@ -58,24 +48,24 @@ const sampleModified = `# A slower kind of Sunday\n\nSome days are made for noti
 
 document.querySelector("#app").innerHTML = `
   <header class="site-header"><div class="header-inner">
-    <a class="brand" href="./" aria-label="Differences home"><span class="brand-icon">${icon("GitCompareArrows")}</span>differences<span class="brand-dot">.</span></a>
-    <div class="header-actions"><span class="local-label"><span></span> LOCAL WORKSPACE</span><span class="header-divider"></span>${tool("theme", "Moon", "Switch to dark theme")}</div>
+    <a class="brand" href="./" aria-label="Differences home"><span class="brand-icon">${icon("GitCompareArrows")}</span>differences</a>
+    <div class="header-actions"><span class="local-label"><span></span>Local workspace</span><span class="header-divider"></span>${tool("theme", "Moon", "Switch to dark theme")}</div>
   </div></header>
   <main>
-    <div class="page-heading"><div><div class="eyebrow">A FRESH LOOK AT THE DETAILS</div><h1>Text comparison<span>.</span></h1></div><button id="example" class="button subtle" type="button">${icon("RotateCcw")}Load example</button></div>
+    <div class="page-heading"><div class="heading-main"><h1>Compare two text versions</h1><p class="lede">Review edits line by line, switch views, and copy a unified patch when you need it.</p></div><div class="heading-side"><button id="example" class="button subtle" type="button">${icon("RotateCcw")}Load example</button><p>Shortcut: Ctrl or Cmd + Enter compares immediately.</p></div></div>
     <section class="editors" aria-label="Text inputs">
       ${["original", "modified"].map((side, index) => `<section class="editor-panel"><div class="editor-heading"><div class="editor-title"><span class="editor-index">0${index + 1}</span><label for="${side}">${index ? "Modified text" : "Original text"}</label><span class="file-name" id="${side}-file"></span></div>${tool(`${side}-import`, "Upload", `Import ${side} .txt file`)}</div><div class="editor-body"><div class="line-gutter" id="${side}-gutter" aria-hidden="true">1</div><textarea id="${side}" aria-label="${index ? "Modified text" : "Original text"}" placeholder="${index ? "Paste your revised text here..." : "Paste your original text here..."}" spellcheck="false" autocapitalize="off" autocomplete="off" wrap="off"></textarea></div><div class="editor-footer"><span id="${side}-stats">0 characters <b>·</b> 0 lines</span><span>PLAIN TEXT</span></div><input id="${side}-input" type="file" accept=".txt,text/plain" hidden /></section>`).join("")}
     </section>
     <div class="action-bar"><div class="primary-actions"><button id="compare" class="button primary" type="button">${icon("GitCompareArrows")}Compare texts${icon("ArrowRight", "button-arrow")}</button><button id="swap" class="button subtle" type="button">${icon("ArrowLeftRight")}Swap<span class="desktop-only"> texts</span></button><button id="clear" class="button subtle muted" type="button">${icon("Trash2")}Clear</button></div><label class="live-control"><input type="checkbox" id="live" checked /><span class="switch" aria-hidden="true"></span>Live comparison</label></div>
     <section class="results" aria-labelledby="result-heading">
-      <div class="result-toolbar"><div class="result-title"><h2 id="result-heading">The difference</h2><span id="status" class="status-pill">Ready to compare</span></div><div class="result-controls"><div class="segmented" role="group" aria-label="Display mode"><button id="side-mode" class="selected" aria-pressed="true" type="button">${icon("Columns2")}<span>Side by side</span></button><button id="unified-mode" aria-pressed="false" type="button">${icon("Rows3")}<span>Unified</span></button></div><span class="control-divider"></span>${tool("copy", "Copy", "Copy unified diff", "disabled")}</div></div>
+      <div class="result-toolbar"><div class="result-title"><h2 id="result-heading">Differences</h2><span id="status" class="status-pill">No comparison yet</span></div><div class="result-controls"><div class="segmented" role="group" aria-label="Display mode"><button id="side-mode" class="selected" aria-pressed="true" type="button">${icon("Columns2")}<span>Side by side</span></button><button id="unified-mode" aria-pressed="false" type="button">${icon("Rows3")}<span>Unified</span></button></div><span class="control-divider"></span>${tool("copy", "Copy", "Copy unified diff", "disabled")}</div></div>
       <div class="summary-bar"><div id="summary" class="summary"><span class="stat added">${icon("Plus")}<strong id="added-lines">0</strong> added <span class="character-stat" id="added-chars">0 chars</span></span><span class="stat removed">${icon("Minus")}<strong id="removed-lines">0</strong> removed <span class="character-stat" id="removed-chars">0 chars</span></span><span class="stat changed"><span class="change-symbol">~</span><strong id="changed-lines">0</strong> changed <span class="character-stat" id="changed-chars">0 chars</span></span></div><label class="hide-control"><input type="checkbox" id="hide-unchanged" />Changes only</label></div>
       <div id="diff-output" class="diff-output" tabindex="0" role="region" aria-label="Comparison result" aria-busy="false"></div>
       <div class="result-footer"><span id="result-detail">Line-by-line comparison</span><span class="legend"><span class="legend-mark added">+</span> Added<span class="legend-mark removed">−</span> Removed<span class="legend-mark changed">~</span> Modified</span></div>
     </section>
-    <div class="privacy-note">${icon("ShieldCheck")}<span>Your text stays in this browser and is never uploaded.</span><span class="privacy-detail">Private by design.</span></div>
+    <div class="privacy-note">${icon("ShieldCheck")}<span>Your text stays in this browser and is never uploaded.</span><span class="privacy-detail">No sign-in required.</span></div>
   </main>
-  <footer class="site-footer"><span>A little clarity goes a long way.</span><span>Made for the details<span class="footer-dot">.</span></span></footer>
+  <footer class="site-footer"><span>Browser-only text comparison.</span><span>Runs locally in this tab.</span></footer>
   <div id="announcement" role="status" aria-live="polite" class="sr-only"></div>
   <div id="toast" class="toast" role="status" hidden></div>
 `;
@@ -295,7 +285,7 @@ function renderResult() {
   const output = get("diff-output");
   output.replaceChildren();
   if (!result || (!inputs.original.value && !inputs.modified.value)) {
-    output.innerHTML = `<div class="empty-state"><span class="empty-icon">${icon("GitCompareArrows")}</span><h3>A clean slate.</h3><p>Your next comparison starts here.</p></div>`;
+    output.innerHTML = `<div class="empty-state"><span class="empty-icon">${icon("GitCompareArrows")}</span><h3>Start with two text inputs</h3><p>Paste text or import a .txt file on either side, then run compare.</p></div>`;
     get("result-detail").textContent = "Nothing to compare yet";
     refreshIcons();
     return;
@@ -304,7 +294,7 @@ function renderResult() {
     ? result.rows.filter((row) => row.kind !== "equal")
     : result.rows;
   if (!rows.length) {
-    output.innerHTML = `<div class="empty-state"><span class="empty-icon success">${icon("CheckCheck")}</span><h3>A perfect match.</h3><p>No differences between these two texts.</p></div>`;
+    output.innerHTML = `<div class="empty-state"><span class="empty-icon success">${icon("CheckCheck")}</span><h3>No differences found</h3><p>Both versions contain the same text.</p></div>`;
     get("result-detail").textContent = "Both versions are identical";
     refreshIcons();
     return;
@@ -450,7 +440,7 @@ get("clear").onclick = () => {
   get("compare").disabled = false;
   get("copy").disabled = true;
   get("diff-output").setAttribute("aria-busy", "false");
-  setStatus("Ready to compare");
+  setStatus("No comparison yet");
   inputs.original.focus();
 };
 get("example").onclick = () => {
