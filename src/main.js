@@ -1,46 +1,46 @@
-import {
-  createIcons,
-  ArrowLeftRight,
-  ArrowRight,
-  CheckCheck,
-  ChevronDown,
-  Columns2,
-  Copy,
-  FileText,
-  GitCompareArrows,
-  Moon,
-  Plus,
-  Minus,
-  RotateCcw,
-  Rows3,
-  ShieldCheck,
-  Sun,
-  Trash2,
-  Upload,
-} from "lucide";
+import ArrowRightLeft from "@navikt/aksel-icons/svg/ArrowRightLeft.svg?raw";
+import ArrowRight from "@navikt/aksel-icons/svg/ArrowRight.svg?raw";
+import CheckmarkCircle from "@navikt/aksel-icons/svg/CheckmarkCircle.svg?raw";
+import ChevronDown from "@navikt/aksel-icons/svg/ChevronDown.svg?raw";
+import TableGrid from "@navikt/aksel-icons/svg/TableGrid.svg?raw";
+import Files from "@navikt/aksel-icons/svg/Files.svg?raw";
+import FileText from "@navikt/aksel-icons/svg/FileText.svg?raw";
+import ArrowsSquarepath from "@navikt/aksel-icons/svg/ArrowsSquarepath.svg?raw";
+import Moon from "@navikt/aksel-icons/svg/Moon.svg?raw";
+import Plus from "@navikt/aksel-icons/svg/Plus.svg?raw";
+import Minus from "@navikt/aksel-icons/svg/Minus.svg?raw";
+import ArrowUndo from "@navikt/aksel-icons/svg/ArrowUndo.svg?raw";
+import Table from "@navikt/aksel-icons/svg/Table.svg?raw";
+import ShieldCheckmark from "@navikt/aksel-icons/svg/ShieldCheckmark.svg?raw";
+import Sun from "@navikt/aksel-icons/svg/Sun.svg?raw";
+import Trash from "@navikt/aksel-icons/svg/Trash.svg?raw";
+import Upload from "@navikt/aksel-icons/svg/Upload.svg?raw";
 import "./style.css";
 
 const icons = {
-  ArrowLeftRight,
+  ArrowLeftRight: ArrowRightLeft,
   ArrowRight,
-  CheckCheck,
+  CheckCheck: CheckmarkCircle,
   ChevronDown,
-  Columns2,
-  Copy,
+  Columns2: TableGrid,
+  Copy: Files,
   FileText,
-  GitCompareArrows,
+  GitCompareArrows: ArrowsSquarepath,
   Moon,
   Plus,
   Minus,
-  RotateCcw,
-  Rows3,
-  ShieldCheck,
+  RotateCcw: ArrowUndo,
+  Rows3: Table,
+  ShieldCheck: ShieldCheckmark,
   Sun,
-  Trash2,
+  Trash2: Trash,
   Upload,
 };
 const icon = (name, className = "") =>
-  `<i data-lucide="${name.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()}" class="${className}" aria-hidden="true"></i>`;
+  icons[name].replace(
+    "<svg ",
+    `<svg aria-hidden="true" focusable="false"${className ? ` class="${className}"` : ""} `,
+  );
 const tool = (id, name, label, extra = "") =>
   `<button id="${id}" class="icon-button" type="button" aria-label="${label}" data-tooltip="${label}" ${extra}>${icon(name)}</button>`;
 const sampleOriginal = `# A slower kind of Sunday\n\nSome days are made for doing less.\nAn open window. A good cup of coffee.\nAnd a little room to think.\n\nOur weekend ritual:\n- Leave the phone at home\n- Find a familiar street\n- Stop somewhere for coffee\n\nNot every moment needs a plan.`;
@@ -71,8 +71,6 @@ document.querySelector("#app").innerHTML = `
 `;
 
 const get = (id) => document.getElementById(id);
-const refreshIcons = () =>
-  createIcons({ icons, attrs: { "stroke-width": 1.7 } });
 const format = (number) => number.toLocaleString();
 const inputs = { original: get("original"), modified: get("modified") };
 let worker;
@@ -287,7 +285,6 @@ function renderResult() {
   if (!result || (!inputs.original.value && !inputs.modified.value)) {
     output.innerHTML = `<div class="empty-state"><span class="empty-icon">${icon("GitCompareArrows")}</span><h3>Start with two text inputs</h3><p>Paste text or import a .txt file on either side, then run compare.</p></div>`;
     get("result-detail").textContent = "Nothing to compare yet";
-    refreshIcons();
     return;
   }
   const rows = get("hide-unchanged").checked
@@ -296,7 +293,6 @@ function renderResult() {
   if (!rows.length) {
     output.innerHTML = `<div class="empty-state"><span class="empty-icon success">${icon("CheckCheck")}</span><h3>No differences found</h3><p>Both versions contain the same text.</p></div>`;
     get("result-detail").textContent = "Both versions are identical";
-    refreshIcons();
     return;
   }
   const table = document.createElement("div");
@@ -361,7 +357,6 @@ function renderResult() {
   }
   get("result-detail").textContent =
     `${format(Math.min(visibleCount, rows.length))} of ${format(rows.length)} ${get("hide-unchanged").checked ? "changed " : ""}lines`;
-  refreshIcons();
 }
 
 for (const side of ["original", "modified"]) {
@@ -476,7 +471,6 @@ get("theme").onclick = () => {
   get("theme").setAttribute("aria-label", label);
   get("theme").dataset.tooltip = label;
   get("theme").innerHTML = icon(dark ? "Sun" : "Moon");
-  refreshIcons();
 };
 get("copy").onclick = async () => {
   get("copy").disabled = true;
@@ -517,5 +511,4 @@ document.addEventListener("keydown", (event) => {
 window.addEventListener("resize", () => {
   for (const side of ["original", "modified"]) updateGutter(side);
 });
-refreshIcons();
 get("example").click();
