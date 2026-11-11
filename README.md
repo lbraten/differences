@@ -17,6 +17,17 @@ npm run preview
 
 Deploy `dist/` to a static host. All assets and the comparison worker are served locally. The development server's WebSocket is only for Vite hot reload; production has no application network requests.
 
+## GitHub Pages
+
+The GitHub Actions workflow in `.github/workflows/deploy.yml` tests, builds, and publishes the site on every push to `main`. It can also be started manually from the Actions tab.
+
+1. In the GitHub repository, open **Settings > Pages**.
+2. Under **Build and deployment**, select **GitHub Actions** as the source.
+3. Push the workflow to `main`, or run **Deploy to GitHub Pages** from the Actions tab.
+4. Open the published URL shown by the deployment or in **Settings > Pages**.
+
+The build uses the base path supplied by GitHub Pages, so assets work at the repository URL and with a configured custom domain. No backend server or secrets are required.
+
 ## Behavior
 
 - Live comparison is debounced by 450 ms. Compare or Ctrl/Cmd+Enter runs immediately.
