@@ -2,7 +2,6 @@ import ArrowRightLeft from "@navikt/aksel-icons/svg/ArrowRightLeft.svg?raw";
 import ArrowRight from "@navikt/aksel-icons/svg/ArrowRight.svg?raw";
 import CheckmarkCircle from "@navikt/aksel-icons/svg/CheckmarkCircle.svg?raw";
 import ChevronDown from "@navikt/aksel-icons/svg/ChevronDown.svg?raw";
-import TableGrid from "@navikt/aksel-icons/svg/TableGrid.svg?raw";
 import Files from "@navikt/aksel-icons/svg/Files.svg?raw";
 import FileText from "@navikt/aksel-icons/svg/FileText.svg?raw";
 import ArrowsSquarepath from "@navikt/aksel-icons/svg/ArrowsSquarepath.svg?raw";
@@ -10,19 +9,23 @@ import Moon from "@navikt/aksel-icons/svg/Moon.svg?raw";
 import Plus from "@navikt/aksel-icons/svg/Plus.svg?raw";
 import Minus from "@navikt/aksel-icons/svg/Minus.svg?raw";
 import ArrowUndo from "@navikt/aksel-icons/svg/ArrowUndo.svg?raw";
-import Table from "@navikt/aksel-icons/svg/Table.svg?raw";
 import ShieldCheckmark from "@navikt/aksel-icons/svg/ShieldCheckmark.svg?raw";
 import Sun from "@navikt/aksel-icons/svg/Sun.svg?raw";
 import Trash from "@navikt/aksel-icons/svg/Trash.svg?raw";
 import Upload from "@navikt/aksel-icons/svg/Upload.svg?raw";
 import "./style.css";
 
+const Columns2Lucide =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-columns2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 3v18"/></svg>';
+const Rows3Lucide =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rows3"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/></svg>';
+
 const icons = {
   ArrowLeftRight: ArrowRightLeft,
   ArrowRight,
   CheckCheck: CheckmarkCircle,
   ChevronDown,
-  Columns2: TableGrid,
+  Columns2: Columns2Lucide,
   Copy: Files,
   FileText,
   GitCompareArrows: ArrowsSquarepath,
@@ -30,7 +33,7 @@ const icons = {
   Plus,
   Minus,
   RotateCcw: ArrowUndo,
-  Rows3: Table,
+  Rows3: Rows3Lucide,
   ShieldCheck: ShieldCheckmark,
   Sun,
   Trash2: Trash,
