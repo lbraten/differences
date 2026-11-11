@@ -9,8 +9,8 @@
   --text: #1f2a24;
   --muted: #5e6a63;
   --border: #cfd7d1;
-  --accent: #1f6c4c;
-  --accent-strong: #18543b;
+  --accent: #76c69d;
+  --accent-strong: #62b68a;
   --focus: #1f6c4c;
   --added-bg: #eaf6ee;
   --removed-bg: #fbeceb;
@@ -42,8 +42,8 @@
   --text: #e2e8e4;
   --muted: #a2b0a8;
   --border: #37433d;
-  --accent: #81caa4;
-  --accent-strong: #63b48d;
+  --accent: #76c69d;
+  --accent-strong: #62b68a;
   --focus: #9fddbd;
   --added-bg: #243d2d;
   --removed-bg: #442c29;
@@ -286,7 +286,7 @@ main {
 .button.primary {
   border-color: var(--accent);
   background: var(--accent);
-  color: #fff;
+  color: #1c2f26;
 }
 
 .button.primary:hover:not(:disabled) {
